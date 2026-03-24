@@ -11,7 +11,7 @@ try:
     VERSION = __version__ 
 except ImportError: 
     VERSION = os.environ.get("APP_VERSION", "unknown") 
-    
+
 # Configuration du logging structuré
 logging.basicConfig(
     level=logging.INFO,
@@ -30,6 +30,14 @@ def hello():
         "version": VERSION,
         "timestamp": datetime.utcnow().isoformat(),
     })
+
+@app.route("/version") 
+def version(): 
+    """Retourne la version de l'application.""" 
+    return jsonify({ 
+        "version": VERSION, 
+        "environment": os.environ.get("ENV", "production"), 
+    }) 
 
 @app.route("/health")
 def health():
