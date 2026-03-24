@@ -6,6 +6,12 @@ from datetime import datetime
 
 from flask import Flask, jsonify
 
+try: 
+    from version import __version__ 
+    VERSION = __version__ 
+except ImportError: 
+    VERSION = os.environ.get("APP_VERSION", "unknown") 
+    
 # Configuration du logging structuré
 logging.basicConfig(
     level=logging.INFO,
